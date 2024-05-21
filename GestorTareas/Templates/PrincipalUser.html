@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuario</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='Css/Frameuser.css')}}">
+    <link rel="stylesheet" href="/GestorTareas/static/Css/Frameuser.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...tu-hash-de-integridad..." crossorigin="anonymous" />
+
+</head>
+<header>
+    <nav class="menu">
+        <ul>
+            <li><a href="/Registrotarea">Registro de Tareas</a></li>
+            <li><a href="/salir">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+    <div class="container-user">
+        <h3 class="usuario"><i id="icon" class="fas fa-user-circle fa-2x"></i></i> {{ user }}</h3>
+    </div>
+</header>
+<body>
+    <h1 class="nombre">
+        {% if Genero_usuario == 'Masculino' %}
+            Bienvenido
+        {% else %}
+            Bienvenida
+        {% endif %}
+        : {{ nombre_usuario }} {{ Apellido_usuario }}
+    </h1><br>
+</body>
+</html>

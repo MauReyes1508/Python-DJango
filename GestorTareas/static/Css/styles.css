@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Platypi:ital,wght@0,300..800;1,300..800&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: "Platypi", serif;
+    font-optical-sizing: auto;
+    font-style: italic;
+}
+
+body{
+    background-color: #f1f5f9;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+}
+#formularioTarea{
+    display: flex; 
+    flex-direction: column;
+    position: absolute;
+    margin-left: 34%;
+    background-color: #22d3ee;
+    padding: 1px 35px 25px 35px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+label{
+    margin-top: 4px;
+    margin-bottom: 5px;
+}
+input{
+    margin-top: 5px;
+    border: none;
+    border-radius: 12px;
+    height: 30px;
+}
+#titulo{
+    font-size: 38px;
+}
+
+#enviar{
+    height: 30px;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+#enviar:hover{
+    background-color: #bef264;
+}
+ 

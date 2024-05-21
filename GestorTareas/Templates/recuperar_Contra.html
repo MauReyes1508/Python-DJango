@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='Css/bootstrap.min.css')}}">
+</head>
+<body>
+    <h2>RESTABLECER CONTRASEÑA</h2>
+  
+    <form method="post" action="/recuperar-contraseña/{{token}}">
+        <div class="form-group">
+            <label for="">Nueva Contraseña:</label>
+            <input type="password" name="Nueva_Contraseña" id="Nueva_Contraseña" required>
+        </div><br>
+        <div class="form-group">
+            <label>Confirmar Contraseña:</label>
+            <input type="password" name="Confirmar_Contraseña" id="Confirmar_Contraseña" required>
+        </div><br>
+        <button type="submit" class="btn btn-danger">Restablecer Contraseña</button>
+    </form>
+</body>
+</html>

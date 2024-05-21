@@ -1,0 +1,11 @@
+a{
+    text-decoration: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600;
+}
+
+ul{
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+}

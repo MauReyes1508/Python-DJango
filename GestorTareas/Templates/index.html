@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="sp">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inicio</title>
+<link rel="stylesheet" href="/GestorTareas/static/Img/sena.png">
+<link rel="stylesheet" href="/GestorTareas/static/Css/index.css">
+<link rel="stylesheet" href="{{url_for('static',filename='Css/index.css')}}">
+
+<style>
+
+</style>
+</head>
+<body>
+<div class="container">
+    <div id="inicio-sesion">
+        <h3>Iniciar Sesión</h3>
+        <form action="" method="post">
+            <div class="form-group">
+                <label for="Usuario">Usuario:</label>
+                <input type="text" id="login-email" name="Usuario" required>
+            </div>
+            <div class="form-group">
+                <label for="Contraseña">Contraseña:</label>
+                <input type="password" id="login-password" name="Contraseña" required>
+            </div><br>
+            <div class="contenedor-link">
+                <a href="/RegistrarUsuario">Registrarse</a>
+                <a href="{{ url_for('recuperar_contraseña')}}">¿Olvidaste tu contraseña?</a>
+            </div>
+            <br><hr>
+            <input class="inicio" type="submit" value="Iniciar Sesión">
+        </form>
+    </div>
+</div> 
+
+</body>
+</html>
+

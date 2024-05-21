@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Tareas</title>
+    <link rel="stylesheet" href="/GestorTareas/static/Css/styles.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='Css/styles.css')}}">
+</head>
+<body>
+    <div class="container">
+        
+    </div>
+    <form method="post" action="/Registrotarea" id="formularioTarea">
+        <label id="titulo">
+            Registro de Tareas
+        </label>
+        <label>Nombre de la Tarea</label>
+        <input type="text" name="Nom_Tarea" placeholder="Ingresa el nombre de la tarea"></input><br>
+        <label>Fecha de Inicio</label>
+        <input type="datetime-local" name="FechaInicio" placeholder="dia/mes/año"></input><br>
+        <label>Fecha de Finalización</label>
+        <input type="datetime-local" name="FechaFinal" ></input><br>
+        <label>Estado de la Tarea</label>
+        <select name="Estado">
+            <option value="">Seleccionar...</option>
+            <option value="Asignado">Asignado</option>
+            <option value="Por asignar">Por Asignar</option>
+            <option value="Terminado">Terminado</option>
+        </select><br>
+        <input id="enviar" type="submit" value="Registrar Tarea"></input>
+    </form>
+</body>
+</html> 

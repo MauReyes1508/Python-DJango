@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <link rel="stylesheet" href="/GestorTareas/static/Css/admin.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='Css/Frameadmin.css')}}">
+    <link rel="stylesheet" href="/GestorTareas/static/Css/Frameadmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...tu-hash-de-integridad..." crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename='Css/bootstrap.min.css')}}"> -->
+    <script src="{{url_for('static', filename='js/modales.js')}}"></script>
+</head>
+
+<header>
+    <div class="container">
+    <nav class="menu">
+        <ul class="nav">
+            <li><a class="nav-item" id="mostrar-user" href="/lista" >Mostrar Usuarios</a></li>
+            <li><a id="mostrar-user" href="/tareas" >Mostrar Tareas</a></li>
+            <li><a href="/RegistroUsuarios">Registro de Usuarios</a></li>
+            <li><a href="/Registrotarea">Registro de Tareas</a></li>
+            <li><a href="/salir">Cerrar Sesión</a></li>
+        </ul>
+        <div class="container-userr">
+            <h3 class="usuarioo"><i id="icon" class="fas fa-user-circle fa-2x"></i> {{ user }}</h3>
+        </div>
+        
+        <form class="form-inline" action="/buscar-tarea" method="post">
+            <div class="input-group">
+                <input type="text" class="form-control" name="busqueda" placeholder="Buscar Tarea...">                
+            </div>
+            <div class="input-group-append">    
+                <button type="submit" class="btn">Buscar</button> 
+            </div>
+        </form>
+    </nav> 
+
+    </div>
+</div>
+</header>
+<body>
+    <br>
+    {% set mostrar_bienvenida = True %}
+
+    {% if request.path != '/' %}
+        {% set mostrar_bienvenida = False %}
+    {% endif %}
+    
+    <div id="bienvenida" {% if not mostrar_bienvenida %}style="display: none;"{% endif %}>
+        <h1 class="nombre">
+            {% if Genero_usuario == 'Masculino' %}
+                Bienvenido
+            {% else %}
+                Bienvenida
+            {% endif %}
+            : {{ nombre_usuario }} {{ Apellido_usuario }}
+        </h1><br>
+    </div>  
+    
+    <br>
+    {% if visualizar_usuario %}
+        <center><h2 class="titulo">Usuarios Registrados</h2>
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>ID: </th><br>
+                    <th>Nombre: </th>
+                    <th>Apellido: </th>
+                    <th>Nombre de Usuario (Nick Name): </th>
+                    <th>Rol: </th>
+                    <th>Acción Eliminar</th>
+                    <th>Acción Actualizar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user['id_user'] }}</td>
+                        <td>{{ user['Nombre'] }}</td>
+                        <td>{{ user['Apellido'] }}</td>
+                        <td>{{ user['User'] }}</td>
+                        <td>{{ user['ROL'] }}</td>
+                        <td><a href="{{ url_for('eliminar_usuario', id=user['id_user'] )}}" class="eliminar">Eliminar</a></td>
+                        <td><a href="{{ url_for('editar_usuario', id=user['id_user'] )}}" class="actualizar">Actualizar</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>    
+        </table></center>
+    {% endif %}
+
+        {% if visualizar_tareas %}
+    {% set mostrar_bienvenida = False %}
+    <center><h2 class="titulo2">Tareas Registradas</h2><br>
+        <table class="tabla2">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre de la Tarea</th>
+                    <th>Fecha de Inicio</th> 
+                    <th>Fecha de Fin</th>
+                    <th>Estado</th>
+                    <th>Acción Actualizar</th>
+                    <th>Acción Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tarea in tareas %}
+                    <tr>
+                        <td>{{ tarea['id_Tareas'] }}</td>
+                        <td>{{ tarea['Nombre'] }}</td>
+                        <td>{{ tarea['Fecha_Inicio'] }}</td>
+                        <td>{{ tarea['Fecha_final'] }}</td>
+                        <td>{{ tarea['Estado'] }}</td>
+                        <td><a href="{{ url_for('editar_tarea', id=tarea['id_Tareas'] )}}" class="actuailizar2">Actualizar</a></td>
+                        <td><a href="{{ url_for('eliminar_tarea', id = tarea['id_Tareas'] )}}" class="eliminar2">Eliminar</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table></center>
+    {% endif %}
+
+    </div>
+    
+
+
+    <script src="js/modales.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var enlaces = document.querySelectorAll('#mostrar-user');
+            enlaces.forEach(function(enlace) {
+                enlace.addEventListener('click', function(event) {
+                    event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+                    this.style.color = '#a3e635'; // Cambia el color del enlace al hacer clic
+                });
+            });
+        });
+    </script> -->
+</body>
+</html>
+
+
+

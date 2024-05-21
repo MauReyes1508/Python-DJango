@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="website icon" type="icon" href="/GestorTareas/static/Img/sena_verde.png">
+    <link rel="stylesheet" href="/GestorTareas/static/Css/usuario.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='Css/usuario.css')}}">
+</head>
+<body>
+    <div class="container"> 
+        <form action="/RegistroUsuarios" method="post" class="formulario">
+            <h2>Registro de Usuario</h2>
+            <div class="campos">
+                <label for="Nombre">Nombre</label>
+                <input type="text" id="nombre" name="Nombre" required>
+            </div>
+            <div class="campos">
+                <label for="Apellido">Apellido</label>
+                <input type="text" id="apellido" name="Apellido" required>
+            </div>
+            <div class="campos">
+                <label for="Usuario">Nombre de Usuario</label>
+                <input type="text" id="username" name="Usuario" required> 
+            </div>
+            <div class="campos">
+                <label for="Email"><span>Email: </span></label>
+                <input type="email" id="email" name="Email" required>
+            </div><br>
+            <div class="campos">
+                <select name="Rol" id="seleccionar" required>
+                    <option value="">Seleccione El Rol...</option>
+                    <option value="admin">Administrador</option>
+                    <option value="usuario">Usuario</option>
+                </select>
+            </div>
+            <div class="campos">
+                <select name="Genero" id="seleccionar" required>
+                    <option value="">Seleccione El Genero...</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                </select>
+            </div>
+            <div class="campos">
+                <label for="Contraseña"><span>Contraseña:</span></label> 
+                <input type="password" id="password" name="Contraseña" required>
+            </div><br>
+            
+            <button type="submit">Registrarse</button><hr>
+        </form>
+    </div>         
+</body>
+</html>
+
