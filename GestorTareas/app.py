@@ -65,7 +65,7 @@ mail = Mail(app)
 
 def enviar_correo(email):
     # Aqui se genera un token para el correo
-    token = serializer.dumps(email, salt='Restablecimiento de Contraseña ') # Esto sirve para el restableciimiento de contraseña
+    token = serializer.dumps(email, salt='Restablecimiento de Contraseña') # Esto sirve para el restableciimiento de contraseña
     # Se crea la url
     enlace = url_for('restablecer_contraseña', token = token, _external = True)
     # Se crea el mensaje
@@ -82,17 +82,13 @@ def restablecer_contraseña(token):
 
         # MEtodo para verificar si la contraseña coincide
         if nueva_contra != confirmar_contra:
-            return print('Las contraseñas no coinciden')
+            return 'Las contraseñas no coinciden'
         passwordNuevo = generate_password_hash(nueva_contra)
         #Verificar el token
-        try:
-            email = serializer.loads(token, salt='Restablecimiento de Contraseña', max_age=50000)
-        
-        except BadSignature:
-            return print('El tiempo a expirado :(')
         
         # Actualizar en la base de datos
         cursor = db.cursor()
+        email = serializer.loads(token, salt='Restablecimiento de Contraseña', max_age=50000)
         consulta = "UPDATE usuario SET Contraseña = %s WHERE Email = %s"
         cursor.execute(consulta,(passwordNuevo,email))
         db.commit()
@@ -101,8 +97,8 @@ def restablecer_contraseña(token):
 
     return render_template('recuperar_Contra.html')
 
-@app.route('/recuperar-contraseña', methods = ['GET' , 'POST'])
-def recuperar_contraseña():
+@app.route('/recuperar-conEmail', methods = ['GET' , 'POST'])
+def recuperar_conEmail():
     if request.method == 'POST':
         email = request.form.get('email')
         enviar_correo(email)
@@ -135,7 +131,38 @@ def add_header(response):
 
 @app.route('/RegistroUsuarios', methods=['GET' , 'POST'])
 
-def RegistroUsuarios():
+def Registro_Usuarios():
+    if request.method == 'POST':
+        NombreUsuario = request.form.get('Nombre')
+        ApellidoUsuario = request.form.get('Apellido')
+        Usuario = request.form.get('Usuario')
+        EmailUser = request.form.get('Email')
+        ContraseñaUser = request.form.get('Contraseña')
+        RolUser = request.form.get('Rol')
+        Genero_user = request.form.get('Genero')
+        EncriptarPass = generate_password_hash(ContraseñaUser) #Metodo para encriptar la contraseña
+
+        #Verificar usuario y email si ya existe
+        cursor = db.cursor()
+        cursor.execute("SELECT * FROM Usuario WHERE user = %s OR email = %s",(Usuario,EmailUser))
+        resultado = cursor.fetchone()
+
+        if resultado:
+            print("Usuario o Email Ya Registrado!")
+            render_template('RegistroUser.html')
+            #Insertar los usuarios
+        else:
+            cursor.execute("INSERT INTO Usuario(Nombre, Apellido, User, Email, Contraseña, ROL, Genero) VALUES(%s,%s,%s,%s,%s,%s,%s)",(NombreUsuario,ApellidoUsuario,Usuario,EmailUser,EncriptarPass,RolUser,Genero_user))
+
+            db.commit()
+            print("Usuario Registrado")
+            return redirect(url_for('Login'))
+
+    return render_template('RegistroUser.html')
+##########################################################################################################################################################################################################################################################################################################
+@app.route('/RegistrarUs', methods=['GET' , 'POST'])
+
+def Registrar_Us():
     if request.method == 'POST':
         NombreUsuario = request.form.get('Nombre')
         ApellidoUsuario = request.form.get('Apellido')
@@ -160,40 +187,9 @@ def RegistroUsuarios():
 
             db.commit()
             print("Usuario Registrado")
-            return redirect(url_for('/'))
+            return redirect(url_for('RegistrarUs'))
 
     return render_template('RegistroUsuario.html')
-##########################################################################################################################################################################################################################################################################################################
-""" @app.route('/RegistrarUsuario', methods=['GET' , 'POST'])
-
-def RegistroUsuarios():
-    if request.method == 'POST':
-        NombreUsuario = request.form.get('Nombre')
-        ApellidoUsuario = request.form.get('Apellido')
-        Usuario = request.form.get('Usuario')
-        EmailUser = request.form.get('Email')
-        ContraseñaUser = request.form.get('Contraseña')
-        RolUser = request.form.get('Rol')
-        Genero_user = request.form.get('Genero')
-        EncriptarPass = generate_password_hash(ContraseñaUser) #Metodo para encriptar la contraseña
-
-        #Verificar usuario y email si ya existe
-        cursor = db.cursor()
-        cursor.execute("SELECT * FROM Usuario WHERE user = %s OR email = %s",(Usuario,EmailUser))
-        resultado = cursor.fetchone()
-
-        if resultado:
-            print("Usuario o Email Ya Registrado!")
-            render_template('RegistroUsuario.html')
-            #Insertar los usuarios
-        else:
-            cursor.execute("INSERT INTO Usuario(Nombre, Apellido, User, Email, Contraseña, ROL, Genero) VALUES(%s,%s,%s,%s,%s,%s,%s)",(NombreUsuario,ApellidoUsuario,Usuario,EmailUser,EncriptarPass,RolUser,Genero_user))
-
-            db.commit()
-            print("Usuario Registrado")
-            return redirect(url_for('lista'))
-
-    return render_template('RegistroUsuario.html') """
 
 ##########################################################################################################################################################################################################################################################################################################
 #########################//FUNCION PARA MOSTRAR LISTA DE USUARIOS REGISTRADOS EN ROL ADMINISTRADOR\\######################################################################################################################################################################################################
@@ -227,8 +223,26 @@ def eliminar_usuario(id):
 @app.route('/editar_usuario/<int:id>', methods = ['GET' , 'POST'])
 def editar_usuario(id):
 
-    return redirect(url_for('lista'))
+    if request.method == 'POST':
+        Nombre_Usuario = request.form['NombreUsuario']
+        Apellido_Usuario = request.form['ApellidoUsuario']
+        Usuario_Name = request.form['Nickname']
+        Email = request.form['email']
 
+        cursor = db.cursor()
+        sql = "UPDATE usuario SET Nombre = %s, Apellido = %s, User =%s, Email = %s WHERE id_user = %s"
+        cursor.execute(sql,(Nombre_Usuario, Apellido_Usuario, Usuario_Name,Email, id))
+        db.commit()
+        return redirect(url_for('lista'))
+    
+    else:
+        cursor = db.cursor()
+        cursor.execute('SELECT * FROM usuario WHERE id_user = %s', (id,))
+        data = cursor.fetchall()
+        cursor.close()
+
+
+    return render_template('Modaluser.html', usuario = data[0])
 ##########################################################################################################################################################################################################################################################################################################
 #################################################// FUNCION PARA ELIMINAR TAREAS EN ADMINISTRADOR \\#########################################################################################################################################################################################################################################################
 ##########################################################################################################################################################################################################################################################################################################
@@ -241,22 +255,6 @@ def eliminar_tarea(id):
     print("Tarea Eliminada Con Exito")
 
     return redirect(url_for('tareas'))
-
-##########################################################################################################################################################################################################################################################################################################
-#########################// FUNCION PARA BUSCAR TAREAS \\#########################################################################################################################################################################################################################################################################################################################################################
-##########################################################################################################################################################################################################################################################################################################
-
-@app.route('/buscar-tarea', methods = ['POST'])
-def buscar_tarea():
-    Busqueda = request.form.get('busqueda')
-
-    cursor = db.cursor(dictionary=True)
-    consulta = "SELECT * FROM tareas WHERE id_Tareas = %s OR Nombre LIKE %s"
-    cursor.execute(consulta, (Busqueda, "%"+Busqueda+"%"))
-    tareas = cursor.fetchall()
-    db.commit()
-
-    return render_template('BusquedaResultado.html', tareas = tareas, Busqueda = Busqueda)
 
 ##########################################################################################################################################################################################################################################################################################################
 #############################################// FUNCION PARA EDITAR TAREAS EN ADMINISTRADOR \\#############################################################################################################################################################################################################################################################
@@ -288,6 +286,21 @@ def editar_tarea(id):
         
 
     return render_template('Modaltareas.html', tareas = data[0])
+##########################################################################################################################################################################################################################################################################################################
+#########################// FUNCION PARA BUSCAR TAREAS \\#########################################################################################################################################################################################################################################################################################################################################################
+##########################################################################################################################################################################################################################################################################################################
+
+@app.route('/buscar-tarea', methods = ['POST'])
+def buscar_tarea():
+    Busqueda = request.form.get('busqueda')
+
+    cursor = db.cursor(dictionary=True)
+    consulta = "SELECT * FROM tareas WHERE id_Tareas = %s OR Nombre LIKE %s"
+    cursor.execute(consulta, (Busqueda, "%"+Busqueda+"%"))
+    tareas = cursor.fetchall()
+    db.commit()
+
+    return render_template('BusquedaResultado.html', tareas = tareas, Busqueda = Busqueda)
 
 ##########################################################################################################################################################################################################################################################################################################
 ###########################//Mostrar Tareas En El Administrador\\#########################################################################################################################################################################################################################################################################################################################################################################

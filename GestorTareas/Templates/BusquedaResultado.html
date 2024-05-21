@@ -10,11 +10,13 @@
     <title>Busqueda...</title>
 </head>
 <body>
-    <h1>Resultado De La Busqueda "{{ Busqueda }}"</h1>
+    <center><h1 style="padding: 20px;">Resultado De La Busqueda "{{ Busqueda }}"</h1></center>
+    <a href="/tareas"><button class="btn btn-success">Regresar</button></a>
+    <br>
     <div class="row">
         {% for tarea in tareas %}
 
-            <div class="col-md-3 mb-3">
+            <center><div class="col-md-3 mb-3">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
                         <h5 class="card-title mb-0">Código de Tarea: {{ tarea['id_Tareas'] }}</h5>
@@ -32,6 +34,6 @@
                 </div>
             </div>
         {% endfor %}
-    </div>
+    </div></center>
 </body>
 </html>

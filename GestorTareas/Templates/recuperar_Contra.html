@@ -12,16 +12,20 @@
 <body>
     <h2>RESTABLECER CONTRASEÑA</h2>
   
-    <form method="post" action="/recuperar-contraseña/{{token}}">
-        <div class="form-group">
-            <label for="">Nueva Contraseña:</label>
-            <input type="password" name="Nueva_Contraseña" id="Nueva_Contraseña" required>
-        </div><br>
-        <div class="form-group">
-            <label>Confirmar Contraseña:</label>
-            <input type="password" name="Confirmar_Contraseña" id="Confirmar_Contraseña" required>
-        </div><br>
-        <button type="submit" class="btn btn-danger">Restablecer Contraseña</button>
-    </form>
+    <form action="" method="post" class="was-validated">
+        <div class="mb-3 mt-3">
+            <label for="uname" class="form-label">Contraseña Nueva:</label>
+            <input type="text" class="form-control" id="uname" placeholder="Ingresa La Nueva Contraseña" name="Nueva_Contraseña" required>
+            <div class="valid-feedback">Segura!</div>
+            <div class="invalid-feedback">Ingresa Una Contrasañe Segura (Ej: hola123)</div>
+          </div>
+        <div class="mb-3">
+          <label for="pwd" class="form-label">Confirmar Contraseña:</label>
+          <input type="password" class="form-control" id="pwd" placeholder="Confirma La Contraseña" name="Confirmar_Contraseñ" required>
+          <div class="valid-feedback">Valido.</div>
+          <div class="invalid-feedback">Confirmar Contraseña Por favor.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Restablecer Contraseña</button>
+      </form>
 </body>
 </html>

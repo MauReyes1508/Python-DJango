@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-04-2024 a las 20:39:36
+-- Tiempo de generación: 21-05-2024 a las 17:31:31
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,6 +35,13 @@ CREATE TABLE `tareas` (
   `Estado` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `tareas`
+--
+
+INSERT INTO `tareas` (`id_Tareas`, `Nombre`, `Fecha_Inicio`, `Fecha_final`, `Estado`) VALUES
+(61, 'Ejercicio', '2024-05-14 10:16:00', '2024-05-15 10:16:00', 'Asignado');
+
 -- --------------------------------------------------------
 
 --
@@ -48,16 +55,18 @@ CREATE TABLE `usuario` (
   `User` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
   `Contraseña` varchar(255) NOT NULL,
-  `ROL` set('admin','usuario') NOT NULL
+  `ROL` varchar(15) NOT NULL,
+  `Genero` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_user`, `Nombre`, `Apellido`, `User`, `Email`, `Contraseña`, `ROL`) VALUES
-(1, 'Mauricio', 'Reyes', 'Mau1508', 'maurey@gmail.com', 'scrypt:32768:8:1$JKZcI1TfixoYdtuF$67c4128cb4154c6d464d56e797aa659562cc517234a467872b3ab83a77e27012dbfb0bb6aab573a1d76b547c8db879924b758183d6ac00ccf8906a94e93bb40c', 'admin'),
-(2, 'Raúl', 'Manrique', 'Rauw15', 'RauMan26@gmail.com', 'scrypt:32768:8:1$Wy2kIUA3NEbJIpnK$3e62ea6b3491bdebf2e033b297b71e8379a8dfba272231bd1d764e9145ef100270d53d96d5564fde8316f9e94c07839ca06aaf691f33121ff3bbc00ff5d1d68f', 'usuario');
+INSERT INTO `usuario` (`id_user`, `Nombre`, `Apellido`, `User`, `Email`, `Contraseña`, `ROL`, `Genero`) VALUES
+(1, 'Mauricio', 'Reyes', 'Mau1508', 'negrohamazuka@gmail.com\r\n', 'scrypt:32768:8:1$JKZcI1TfixoYdtuF$67c4128cb4154c6d464d56e797aa659562cc517234a467872b3ab83a77e27012dbfb0bb6aab573a1d76b547c8db879924b758183d6ac00ccf8906a94e93bb40c', 'admin', 'Masculino'),
+(3, 'Nataly', 'Polo', 'Natt', 'natalyreyes@gmail.com', 'scrypt:32768:8:1$9JNOXbRVMAESVeTr$4fab6dadab2e6084b5d29ce6f3d6f8267b6cc795b328c6da6edd7d599b0b0a324a3e7011b9a394e869df3841bfe7376d91fd2edc504f744199685716960a5bbd', 'admin', 'Femenino'),
+(4, 'Raúl', 'Reyes', 'Rauww15', 'Rauw@gmail.com', 'scrypt:32768:8:1$FRiapWb7JnwSBhRS$6185ee468d26e7c12f750df76f934f31e28f6106722bec808fed8a56bfe10b1924495c7a260c53175d193905ad63dff7b47c2fe4d9598aeb052d9d713ae0207a', 'usuario', 'Masculino');
 
 --
 -- Índices para tablas volcadas
@@ -83,13 +92,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `id_Tareas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id_Tareas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
